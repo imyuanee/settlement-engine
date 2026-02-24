@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    # 도커로 띄운 PostgreSQL 주소
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: '1234'
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      # 앱 실행 시 엔티티(Java 클래스)를 보고 테이블을 자동 업데이트
+      ddl-auto: update
+    # 콘솔창에 실행되는 SQL을 예쁘게 출력
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  batch:
+    jdbc:
+      # 배치 메타 데이터 테이블(기록용) 자동 생성
+      initialize-schema: always
+    job:
+      # 프로젝트 켤 때 배치가 자동 실행되는 것 방지
+      enabled: false
