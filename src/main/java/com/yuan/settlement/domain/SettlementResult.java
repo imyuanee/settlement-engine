@@ -1,6 +1,6 @@
 package com.yuan.settlement.domain;
 
-import jakarta.persistence.*; // 이 부분에 모든 도구들이 들어있습니다.
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,12 +25,12 @@ public class SettlementResult {
     private LocalDateTime settledAt;
 
     @Builder
-    public SettlementResult(String storeId, String orderId, BigDecimal totalAmount, BigDecimal fee, BigDecimal settlementAmount) {
+    public SettlementResult(String storeId, String orderId, BigDecimal totalAmount, BigDecimal fee, BigDecimal settlementAmount, LocalDateTime settledAt) {
         this.storeId = storeId;
         this.orderId = orderId;
         this.totalAmount = totalAmount;
         this.fee = fee;
         this.settlementAmount = settlementAmount;
-        this.settledAt = LocalDateTime.now();
+        this.settledAt = settledAt;
     }
 }
