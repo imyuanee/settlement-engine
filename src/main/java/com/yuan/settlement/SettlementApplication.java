@@ -2,6 +2,7 @@ package com.yuan.settlement;
 
 import com.yuan.settlement.domain.PaymentRawData;
 import com.yuan.settlement.repository.PaymentRepository;
+import com.yuan.settlement.service.SettlementService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,25 +18,15 @@ public class SettlementApplication {
 	}
 
 	@Bean
-	public CommandLineRunner test(PaymentRepository paymentRepository) {
+	public CommandLineRunner run(SettlementService settlementService) {
 		return args -> {
 			System.out.println("================================");
-			System.out.println("DB 데이터 불러오기 테스트 시작!");
+			System.out.println("🚀 정산 프로세스 시작!");
 
-			// 1. Repository를 통해 DB의 모든 결제 데이터를 가져옴
-			List<PaymentRawData> payments = paymentRepository.findAll();
+			// 1. 정산 서비스의 로직을 호출합니다.
+			settlementService.processSettlement();
 
-			if (payments.isEmpty()) {
-				System.out.println("⚠️ DB에 데이터가 없어요! DBeaver에서 데이터를 넣었는지 확인하세요.");
-			} else {
-				System.out.println("조회된 데이터 개수: " + payments.size());
-
-				// 2. 가져온 데이터를 하나씩 출력
-				payments.forEach(p -> {
-					System.out.println("주문번호: " + p.getOrderId() + " | 금액: " + p.getAmount());
-				});
-			}
-
+			System.out.println("✅ 모든 정산 처리가 완료되었습니다.");
 			System.out.println("================================");
 		};
 	}
